@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Property, Booking, RentPayment, Complaint, Chat, HouseAvailability
 from .forms import PropertyForm, BookingForm, RentPaymentForm, ComplaintForm, ChatForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.models import User
+
 
 def home(request):
     """
@@ -92,3 +96,45 @@ def chat(request, property_id):
     else:
         form = ChatForm()
     return render(request, 'rental/chat.html', {'form': form, 'chats': chats, 'property': property})
+
+
+def logout_view(request):
+    # Log out the user
+    logout(request)
+    # Redirect to the home page or login page after logging out
+    return redirect('home')  # Replace 'home' with the name of your desired redirect URL
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('home')  # Redirect to a page after successful login
+        else:
+            messages.error(request, 'Invalid username or password.')
+    
+    return render(request, 'login.html')  # The login page template
+
+def signup_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        password_confirm = request.POST['password_confirm']
+        
+        if password == password_confirm:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists.')
+            else:
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+                messages.success(request, 'Account created successfully. You can now log in.')
+                return redirect('login')  # Redirect to login after successful signup
+        else:
+            messages.error(request, 'Passwords do not match.')
+    
+    return render(request, 'signup.html')  # The signup page template

@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('landlord', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='properties', to='App.user')),
+                ('landlord', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='properties', to='rental.user')),
             ],
         ),
         migrations.CreateModel(
@@ -33,8 +33,8 @@ class Migration(migrations.Migration):
                 ('payment_date', models.DateTimeField(auto_now_add=True)),
                 ('status', models.CharField(choices=[('pending', 'Pending'), ('completed', 'Completed'), ('failed', 'Failed')], max_length=10)),
                 ('payment_method', models.CharField(blank=True, max_length=50)),
-                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='payments', to='App.property')),
-                ('tenant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='payments', to='App.user')),
+                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='payments', to='rental.property')),
+                ('tenant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='payments', to='rental.user')),
             ],
         ),
         migrations.CreateModel(
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('location_bandwidth', models.IntegerField()),
                 ('availability', models.BooleanField(default=True)),
                 ('checked_at', models.DateTimeField(auto_now_add=True)),
-                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='availability_checks', to='App.property')),
+                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='availability_checks', to='rental.property')),
             ],
         ),
         migrations.CreateModel(
@@ -54,8 +54,8 @@ class Migration(migrations.Migration):
                 ('description', models.TextField()),
                 ('date_filed', models.DateTimeField(auto_now_add=True)),
                 ('status', models.CharField(choices=[('pending', 'Pending'), ('resolved', 'Resolved')], max_length=10)),
-                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='complaints', to='App.property')),
-                ('tenant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='complaints', to='App.user')),
+                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='complaints', to='rental.property')),
+                ('tenant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='complaints', to='rental.user')),
             ],
         ),
         migrations.CreateModel(
@@ -64,8 +64,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('message', models.TextField()),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='chats', to='App.property')),
-                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sent_messages', to='App.user')),
+                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='chats', to='rental.property')),
+                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sent_messages', to='rental.user')),
             ],
         ),
         migrations.CreateModel(
@@ -76,8 +76,8 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('cancelled', 'Cancelled')], max_length=10)),
                 ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
-                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bookings', to='App.property')),
-                ('tenant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bookings', to='App.user')),
+                ('property', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bookings', to='rental.property')),
+                ('tenant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bookings', to='rental.user')),
             ],
         ),
     ]

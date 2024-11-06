@@ -9,4 +9,7 @@ urlpatterns = [
     path('property/<int:property_id>/pay/', views.pay_rent, name='pay_rent'),
     path('property/<int:property_id>/complaint/', views.submit_complaint, name='submit_complaint'),
     path('property/<int:property_id>/chat/', views.chat, name='chat'),
+    path('logout/', views.logout_view, name='logout'),
+    path('login/', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),
 ]
