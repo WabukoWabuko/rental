@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Chat Room{% endblock %}
+{% block content %}
+<h2>Chat Room for {{ property.property_type }} at {{ property.address }}</h2>
+<div class="card mb-3">
+    <div class="card-body">
+        {% for chat in chats %}
+            <p><strong>{{ chat.sender.username }}:</strong> {{ chat.message }} <small class="text-muted">{{ chat.timestamp }}</small></p>
+        {% endfor %}
+    </div>
+</div>
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+{% endblock %}

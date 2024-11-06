@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Property Details{% endblock %}
+{% block content %}
+<div class="card mb-4">
+    <img src="{{ property.image.url }}" class="card-img-top" alt="Property Image">
+    <div class="card-body">
+        <h2 class="card-title">{{ property.property_type }} at {{ property.address }}</h2>
+        <p class="card-text">Price: ${{ property.price }} per month</p>
+        <p class="card-text">{{ property.description }}</p>
+        <div class="btn-group" role="group" aria-label="Property Actions">
+            <a href="{% url 'book_property' property.id %}" class="btn btn-success">Book this Property</a>
+            <a href="{% url 'pay_rent' property.id %}" class="btn btn-info">Pay Rent</a>
+            <a href="{% url 'submit_complaint' property.id %}" class="btn btn-warning">Submit Complaint</a>
+            <a href="{% url 'chat' property.id %}" class="btn btn-primary">Join Chat</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

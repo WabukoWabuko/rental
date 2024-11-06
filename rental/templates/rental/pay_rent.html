@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Pay Rent{% endblock %}
+{% block content %}
+<h2>Pay Rent for {{ property.property_type }} at {{ property.address }}</h2>
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Make Payment</button>
+</form>
+{% endblock %}

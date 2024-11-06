@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Book Property{% endblock %}
+{% block content %}
+<h2>Book {{ property.property_type }} at {{ property.address }}</h2>
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+</form>
+{% endblock %}
