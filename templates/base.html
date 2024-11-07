@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Rental Website{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% comment %} Start of the styling of a card to contain the form created {% endcomment %}
+    <style>
+        .card-center {
+            max-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .messages {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -26,8 +43,16 @@
         </div>
     </nav>
 
+    <!-- Centered Card for Login/Signup -->
     <div class="container mt-4">
-        {% block content %}{% endblock %}
+        <div class="card card-center">
+            <div class="card-header">
+                <h3>{% block page_title %}Login or Sign Up{% endblock %}</h3>
+            </div>
+            <div class="card-body">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

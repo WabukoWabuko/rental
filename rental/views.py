@@ -14,7 +14,7 @@ def home(request):
     Display the home page with a list of available properties.
     """
     properties = Property.objects.filter(availability=True)
-    return render(request, 'rental/home.html', {'properties': properties})
+    return render(request, 'home.html', {'properties': properties})
 
 @login_required
 def property_detail(request, property_id):
@@ -22,7 +22,7 @@ def property_detail(request, property_id):
     Display details of a specific property, including availability, description, and location.
     """
     property = get_object_or_404(Property, id=property_id)
-    return render(request, 'rental/property_detail.html', {'property': property})
+    return render(request, 'property_detail.html', {'property': property})
 
 @login_required
 def book_property(request, property_id):
@@ -40,7 +40,7 @@ def book_property(request, property_id):
             return redirect('booking_confirmation')
     else:
         form = BookingForm()
-    return render(request, 'rental/book_property.html', {'form': form, 'property': property})
+    return render(request, 'book_property.html', {'form': form, 'property': property})
 
 @login_required
 def pay_rent(request, property_id):
@@ -58,7 +58,7 @@ def pay_rent(request, property_id):
             return redirect('payment_confirmation')
     else:
         form = RentPaymentForm()
-    return render(request, 'rental/pay_rent.html', {'form': form, 'property': property})
+    return render(request, 'pay_rent.html', {'form': form, 'property': property})
 
 @login_required
 def submit_complaint(request, property_id):
@@ -76,7 +76,7 @@ def submit_complaint(request, property_id):
             return redirect('complaint_confirmation')
     else:
         form = ComplaintForm()
-    return render(request, 'rental/submit_complaint.html', {'form': form, 'property': property})
+    return render(request, 'submit_complaint.html', {'form': form, 'property': property})
 
 @login_required
 def chat(request, property_id):
@@ -95,7 +95,7 @@ def chat(request, property_id):
             return redirect('chat', property_id=property.id)
     else:
         form = ChatForm()
-    return render(request, 'rental/chat.html', {'form': form, 'chats': chats, 'property': property})
+    return render(request, 'chat.html', {'form': form, 'chats': chats, 'property': property})
 
 
 def logout_view(request):
@@ -138,3 +138,10 @@ def signup_view(request):
             messages.error(request, 'Passwords do not match.')
     
     return render(request, 'signup.html')  # The signup page template
+
+def properties_list(request):
+    properties = Property.objects.all()
+    return render(request, 'properties_list.html', {'properties': properties})
+
+def contact(request):
+    return render(request, 'contact.html')
