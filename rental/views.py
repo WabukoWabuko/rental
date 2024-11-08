@@ -124,13 +124,14 @@ def signup_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        email = request.email.POST['email']
         password_confirm = request.POST['password_confirm']
         
         if password == password_confirm:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists.')
             else:
-                user = User.objects.create_user(username=username, password=password)
+                user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
                 messages.success(request, 'Account created successfully. You can now log in.')
                 return redirect('login')  # Redirect to login after successful signup
